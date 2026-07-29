@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedPomodoroRouteImport } from './routes/_authenticated/pomodoro'
 import { Route as AuthenticatedHabitosRouteImport } from './routes/_authenticated/habitos'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCronogramaRouteImport } from './routes/_authenticated/cronograma'
 import { Route as AuthenticatedAnotacoesRouteImport } from './routes/_authenticated/anotacoes'
 import { Route as AuthenticatedAgendaRouteImport } from './routes/_authenticated/agenda'
@@ -42,6 +43,11 @@ const AuthenticatedHabitosRoute = AuthenticatedHabitosRouteImport.update({
   path: '/habitos',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedCronogramaRoute = AuthenticatedCronogramaRouteImport.update({
   id: '/cronograma',
   path: '/cronograma',
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/agenda': typeof AuthenticatedAgendaRoute
   '/anotacoes': typeof AuthenticatedAnotacoesRoute
   '/cronograma': typeof AuthenticatedCronogramaRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/habitos': typeof AuthenticatedHabitosRoute
   '/pomodoro': typeof AuthenticatedPomodoroRoute
 }
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/agenda': typeof AuthenticatedAgendaRoute
   '/anotacoes': typeof AuthenticatedAnotacoesRoute
   '/cronograma': typeof AuthenticatedCronogramaRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/habitos': typeof AuthenticatedHabitosRoute
   '/pomodoro': typeof AuthenticatedPomodoroRoute
 }
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/_authenticated/agenda': typeof AuthenticatedAgendaRoute
   '/_authenticated/anotacoes': typeof AuthenticatedAnotacoesRoute
   '/_authenticated/cronograma': typeof AuthenticatedCronogramaRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/habitos': typeof AuthenticatedHabitosRoute
   '/_authenticated/pomodoro': typeof AuthenticatedPomodoroRoute
 }
@@ -95,6 +104,7 @@ export interface FileRouteTypes {
     | '/agenda'
     | '/anotacoes'
     | '/cronograma'
+    | '/dashboard'
     | '/habitos'
     | '/pomodoro'
   fileRoutesByTo: FileRoutesByTo
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
     | '/agenda'
     | '/anotacoes'
     | '/cronograma'
+    | '/dashboard'
     | '/habitos'
     | '/pomodoro'
   id:
@@ -114,6 +125,7 @@ export interface FileRouteTypes {
     | '/_authenticated/agenda'
     | '/_authenticated/anotacoes'
     | '/_authenticated/cronograma'
+    | '/_authenticated/dashboard'
     | '/_authenticated/habitos'
     | '/_authenticated/pomodoro'
   fileRoutesById: FileRoutesById
@@ -161,6 +173,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHabitosRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/cronograma': {
       id: '/_authenticated/cronograma'
       path: '/cronograma'
@@ -189,6 +208,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAgendaRoute: typeof AuthenticatedAgendaRoute
   AuthenticatedAnotacoesRoute: typeof AuthenticatedAnotacoesRoute
   AuthenticatedCronogramaRoute: typeof AuthenticatedCronogramaRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedHabitosRoute: typeof AuthenticatedHabitosRoute
   AuthenticatedPomodoroRoute: typeof AuthenticatedPomodoroRoute
 }
@@ -197,6 +217,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAgendaRoute: AuthenticatedAgendaRoute,
   AuthenticatedAnotacoesRoute: AuthenticatedAnotacoesRoute,
   AuthenticatedCronogramaRoute: AuthenticatedCronogramaRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedHabitosRoute: AuthenticatedHabitosRoute,
   AuthenticatedPomodoroRoute: AuthenticatedPomodoroRoute,
 }
