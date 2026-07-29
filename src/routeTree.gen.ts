@@ -17,6 +17,7 @@ import { Route as AuthenticatedHabitosRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedEstatisticasRouteImport } from './routes/_authenticated/estatisticas'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCronogramaRouteImport } from './routes/_authenticated/cronograma'
+import { Route as AuthenticatedConfiguracoesRouteImport } from './routes/_authenticated/configuracoes'
 import { Route as AuthenticatedAnotacoesRouteImport } from './routes/_authenticated/anotacoes'
 import { Route as AuthenticatedAgendaRouteImport } from './routes/_authenticated/agenda'
 
@@ -60,6 +61,12 @@ const AuthenticatedCronogramaRoute = AuthenticatedCronogramaRouteImport.update({
   path: '/cronograma',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedConfiguracoesRoute =
+  AuthenticatedConfiguracoesRouteImport.update({
+    id: '/configuracoes',
+    path: '/configuracoes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAnotacoesRoute = AuthenticatedAnotacoesRouteImport.update({
   id: '/anotacoes',
   path: '/anotacoes',
@@ -76,6 +83,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/agenda': typeof AuthenticatedAgendaRoute
   '/anotacoes': typeof AuthenticatedAnotacoesRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
   '/cronograma': typeof AuthenticatedCronogramaRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/estatisticas': typeof AuthenticatedEstatisticasRoute
@@ -87,6 +95,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/agenda': typeof AuthenticatedAgendaRoute
   '/anotacoes': typeof AuthenticatedAnotacoesRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
   '/cronograma': typeof AuthenticatedCronogramaRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/estatisticas': typeof AuthenticatedEstatisticasRoute
@@ -100,6 +109,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/agenda': typeof AuthenticatedAgendaRoute
   '/_authenticated/anotacoes': typeof AuthenticatedAnotacoesRoute
+  '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRoute
   '/_authenticated/cronograma': typeof AuthenticatedCronogramaRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/estatisticas': typeof AuthenticatedEstatisticasRoute
@@ -113,6 +123,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/agenda'
     | '/anotacoes'
+    | '/configuracoes'
     | '/cronograma'
     | '/dashboard'
     | '/estatisticas'
@@ -124,6 +135,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/agenda'
     | '/anotacoes'
+    | '/configuracoes'
     | '/cronograma'
     | '/dashboard'
     | '/estatisticas'
@@ -136,6 +148,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/agenda'
     | '/_authenticated/anotacoes'
+    | '/_authenticated/configuracoes'
     | '/_authenticated/cronograma'
     | '/_authenticated/dashboard'
     | '/_authenticated/estatisticas'
@@ -207,6 +220,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCronogramaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/configuracoes': {
+      id: '/_authenticated/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/anotacoes': {
       id: '/_authenticated/anotacoes'
       path: '/anotacoes'
@@ -227,6 +247,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAgendaRoute: typeof AuthenticatedAgendaRoute
   AuthenticatedAnotacoesRoute: typeof AuthenticatedAnotacoesRoute
+  AuthenticatedConfiguracoesRoute: typeof AuthenticatedConfiguracoesRoute
   AuthenticatedCronogramaRoute: typeof AuthenticatedCronogramaRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedEstatisticasRoute: typeof AuthenticatedEstatisticasRoute
@@ -237,6 +258,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAgendaRoute: AuthenticatedAgendaRoute,
   AuthenticatedAnotacoesRoute: AuthenticatedAnotacoesRoute,
+  AuthenticatedConfiguracoesRoute: AuthenticatedConfiguracoesRoute,
   AuthenticatedCronogramaRoute: AuthenticatedCronogramaRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedEstatisticasRoute: AuthenticatedEstatisticasRoute,
