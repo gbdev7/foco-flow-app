@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedPomodoroRouteImport } from './routes/_authenticated/pomodoro'
 import { Route as AuthenticatedHabitosRouteImport } from './routes/_authenticated/habitos'
+import { Route as AuthenticatedCronogramaRouteImport } from './routes/_authenticated/cronograma'
 import { Route as AuthenticatedAgendaRouteImport } from './routes/_authenticated/agenda'
 
 const AuthRoute = AuthRouteImport.update({
@@ -40,6 +41,11 @@ const AuthenticatedHabitosRoute = AuthenticatedHabitosRouteImport.update({
   path: '/habitos',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedCronogramaRoute = AuthenticatedCronogramaRouteImport.update({
+  id: '/cronograma',
+  path: '/cronograma',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAgendaRoute = AuthenticatedAgendaRouteImport.update({
   id: '/agenda',
   path: '/agenda',
@@ -50,6 +56,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/agenda': typeof AuthenticatedAgendaRoute
+  '/cronograma': typeof AuthenticatedCronogramaRoute
   '/habitos': typeof AuthenticatedHabitosRoute
   '/pomodoro': typeof AuthenticatedPomodoroRoute
 }
@@ -57,6 +64,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/agenda': typeof AuthenticatedAgendaRoute
+  '/cronograma': typeof AuthenticatedCronogramaRoute
   '/habitos': typeof AuthenticatedHabitosRoute
   '/pomodoro': typeof AuthenticatedPomodoroRoute
 }
@@ -66,20 +74,28 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/agenda': typeof AuthenticatedAgendaRoute
+  '/_authenticated/cronograma': typeof AuthenticatedCronogramaRoute
   '/_authenticated/habitos': typeof AuthenticatedHabitosRoute
   '/_authenticated/pomodoro': typeof AuthenticatedPomodoroRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/agenda' | '/habitos' | '/pomodoro'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/agenda'
+    | '/cronograma'
+    | '/habitos'
+    | '/pomodoro'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/agenda' | '/habitos' | '/pomodoro'
+  to: '/' | '/auth' | '/agenda' | '/cronograma' | '/habitos' | '/pomodoro'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/agenda'
+    | '/_authenticated/cronograma'
     | '/_authenticated/habitos'
     | '/_authenticated/pomodoro'
   fileRoutesById: FileRoutesById
@@ -127,6 +143,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHabitosRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/cronograma': {
+      id: '/_authenticated/cronograma'
+      path: '/cronograma'
+      fullPath: '/cronograma'
+      preLoaderRoute: typeof AuthenticatedCronogramaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/agenda': {
       id: '/_authenticated/agenda'
       path: '/agenda'
@@ -139,12 +162,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAgendaRoute: typeof AuthenticatedAgendaRoute
+  AuthenticatedCronogramaRoute: typeof AuthenticatedCronogramaRoute
   AuthenticatedHabitosRoute: typeof AuthenticatedHabitosRoute
   AuthenticatedPomodoroRoute: typeof AuthenticatedPomodoroRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAgendaRoute: AuthenticatedAgendaRoute,
+  AuthenticatedCronogramaRoute: AuthenticatedCronogramaRoute,
   AuthenticatedHabitosRoute: AuthenticatedHabitosRoute,
   AuthenticatedPomodoroRoute: AuthenticatedPomodoroRoute,
 }
