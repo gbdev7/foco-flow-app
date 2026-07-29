@@ -30,5 +30,5 @@ export function useSubjects() {
 }
 
 export function subjectMap(subjects: Subject[] = []) {
-  return Object.fromEntries(subjects.map((s) => [s.id, s])) as Record<string, Subject>;
+  return new Map(subjects.map((s) => [s.id, s]));
 }
