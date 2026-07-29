@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedPomodoroRouteImport } from './routes/_authenticated/pomodoro'
 import { Route as AuthenticatedHabitosRouteImport } from './routes/_authenticated/habitos'
 
 const AuthRoute = AuthRouteImport.update({
@@ -28,6 +29,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedPomodoroRoute = AuthenticatedPomodoroRouteImport.update({
+  id: '/pomodoro',
+  path: '/pomodoro',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedHabitosRoute = AuthenticatedHabitosRouteImport.update({
   id: '/habitos',
   path: '/habitos',
@@ -38,11 +44,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/habitos': typeof AuthenticatedHabitosRoute
+  '/pomodoro': typeof AuthenticatedPomodoroRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/habitos': typeof AuthenticatedHabitosRoute
+  '/pomodoro': typeof AuthenticatedPomodoroRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -50,13 +58,20 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/habitos': typeof AuthenticatedHabitosRoute
+  '/_authenticated/pomodoro': typeof AuthenticatedPomodoroRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/habitos'
+  fullPaths: '/' | '/auth' | '/habitos' | '/pomodoro'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/habitos'
-  id: '__root__' | '/' | '/_authenticated' | '/auth' | '/_authenticated/habitos'
+  to: '/' | '/auth' | '/habitos' | '/pomodoro'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/habitos'
+    | '/_authenticated/pomodoro'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -88,6 +103,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/pomodoro': {
+      id: '/_authenticated/pomodoro'
+      path: '/pomodoro'
+      fullPath: '/pomodoro'
+      preLoaderRoute: typeof AuthenticatedPomodoroRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/habitos': {
       id: '/_authenticated/habitos'
       path: '/habitos'
@@ -100,10 +122,12 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedHabitosRoute: typeof AuthenticatedHabitosRoute
+  AuthenticatedPomodoroRoute: typeof AuthenticatedPomodoroRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedHabitosRoute: AuthenticatedHabitosRoute,
+  AuthenticatedPomodoroRoute: AuthenticatedPomodoroRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

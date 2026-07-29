@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { formatTime, minutesBetween } from "@/lib/study";
+import { formatTime } from "@/lib/study";
 
 export const Route = createFileRoute("/_authenticated/pomodoro")({
   head: () => ({
@@ -309,5 +309,3 @@ function PomodoroPage() {
     </>
   );
 }
-
-export const _minutesBetween = minutesBetween;
