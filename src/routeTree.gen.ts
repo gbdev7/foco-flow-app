@@ -9,38 +9,175 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedPomodoroRouteImport } from './routes/_authenticated/pomodoro'
+import { Route as AuthenticatedHabitosRouteImport } from './routes/_authenticated/habitos'
+import { Route as AuthenticatedEstatisticasRouteImport } from './routes/_authenticated/estatisticas'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedCronogramaRouteImport } from './routes/_authenticated/cronograma'
+import { Route as AuthenticatedConfiguracoesRouteImport } from './routes/_authenticated/configuracoes'
+import { Route as AuthenticatedAnotacoesRouteImport } from './routes/_authenticated/anotacoes'
+import { Route as AuthenticatedAgendaRouteImport } from './routes/_authenticated/agenda'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedPomodoroRoute = AuthenticatedPomodoroRouteImport.update({
+  id: '/pomodoro',
+  path: '/pomodoro',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedHabitosRoute = AuthenticatedHabitosRouteImport.update({
+  id: '/habitos',
+  path: '/habitos',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEstatisticasRoute =
+  AuthenticatedEstatisticasRouteImport.update({
+    id: '/estatisticas',
+    path: '/estatisticas',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCronogramaRoute = AuthenticatedCronogramaRouteImport.update({
+  id: '/cronograma',
+  path: '/cronograma',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedConfiguracoesRoute =
+  AuthenticatedConfiguracoesRouteImport.update({
+    id: '/configuracoes',
+    path: '/configuracoes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAnotacoesRoute = AuthenticatedAnotacoesRouteImport.update({
+  id: '/anotacoes',
+  path: '/anotacoes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAgendaRoute = AuthenticatedAgendaRouteImport.update({
+  id: '/agenda',
+  path: '/agenda',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/agenda': typeof AuthenticatedAgendaRoute
+  '/anotacoes': typeof AuthenticatedAnotacoesRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
+  '/cronograma': typeof AuthenticatedCronogramaRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/estatisticas': typeof AuthenticatedEstatisticasRoute
+  '/habitos': typeof AuthenticatedHabitosRoute
+  '/pomodoro': typeof AuthenticatedPomodoroRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/agenda': typeof AuthenticatedAgendaRoute
+  '/anotacoes': typeof AuthenticatedAnotacoesRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
+  '/cronograma': typeof AuthenticatedCronogramaRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/estatisticas': typeof AuthenticatedEstatisticasRoute
+  '/habitos': typeof AuthenticatedHabitosRoute
+  '/pomodoro': typeof AuthenticatedPomodoroRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/agenda': typeof AuthenticatedAgendaRoute
+  '/_authenticated/anotacoes': typeof AuthenticatedAnotacoesRoute
+  '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRoute
+  '/_authenticated/cronograma': typeof AuthenticatedCronogramaRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/estatisticas': typeof AuthenticatedEstatisticasRoute
+  '/_authenticated/habitos': typeof AuthenticatedHabitosRoute
+  '/_authenticated/pomodoro': typeof AuthenticatedPomodoroRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/agenda'
+    | '/anotacoes'
+    | '/configuracoes'
+    | '/cronograma'
+    | '/dashboard'
+    | '/estatisticas'
+    | '/habitos'
+    | '/pomodoro'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/agenda'
+    | '/anotacoes'
+    | '/configuracoes'
+    | '/cronograma'
+    | '/dashboard'
+    | '/estatisticas'
+    | '/habitos'
+    | '/pomodoro'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/agenda'
+    | '/_authenticated/anotacoes'
+    | '/_authenticated/configuracoes'
+    | '/_authenticated/cronograma'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/estatisticas'
+    | '/_authenticated/habitos'
+    | '/_authenticated/pomodoro'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +185,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/pomodoro': {
+      id: '/_authenticated/pomodoro'
+      path: '/pomodoro'
+      fullPath: '/pomodoro'
+      preLoaderRoute: typeof AuthenticatedPomodoroRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/habitos': {
+      id: '/_authenticated/habitos'
+      path: '/habitos'
+      fullPath: '/habitos'
+      preLoaderRoute: typeof AuthenticatedHabitosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/estatisticas': {
+      id: '/_authenticated/estatisticas'
+      path: '/estatisticas'
+      fullPath: '/estatisticas'
+      preLoaderRoute: typeof AuthenticatedEstatisticasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/cronograma': {
+      id: '/_authenticated/cronograma'
+      path: '/cronograma'
+      fullPath: '/cronograma'
+      preLoaderRoute: typeof AuthenticatedCronogramaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/configuracoes': {
+      id: '/_authenticated/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/anotacoes': {
+      id: '/_authenticated/anotacoes'
+      path: '/anotacoes'
+      fullPath: '/anotacoes'
+      preLoaderRoute: typeof AuthenticatedAnotacoesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/agenda': {
+      id: '/_authenticated/agenda'
+      path: '/agenda'
+      fullPath: '/agenda'
+      preLoaderRoute: typeof AuthenticatedAgendaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAgendaRoute: typeof AuthenticatedAgendaRoute
+  AuthenticatedAnotacoesRoute: typeof AuthenticatedAnotacoesRoute
+  AuthenticatedConfiguracoesRoute: typeof AuthenticatedConfiguracoesRoute
+  AuthenticatedCronogramaRoute: typeof AuthenticatedCronogramaRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedEstatisticasRoute: typeof AuthenticatedEstatisticasRoute
+  AuthenticatedHabitosRoute: typeof AuthenticatedHabitosRoute
+  AuthenticatedPomodoroRoute: typeof AuthenticatedPomodoroRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAgendaRoute: AuthenticatedAgendaRoute,
+  AuthenticatedAnotacoesRoute: AuthenticatedAnotacoesRoute,
+  AuthenticatedConfiguracoesRoute: AuthenticatedConfiguracoesRoute,
+  AuthenticatedCronogramaRoute: AuthenticatedCronogramaRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedEstatisticasRoute: AuthenticatedEstatisticasRoute,
+  AuthenticatedHabitosRoute: AuthenticatedHabitosRoute,
+  AuthenticatedPomodoroRoute: AuthenticatedPomodoroRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
