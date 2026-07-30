@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { CalendarRange, Timer, Repeat2, NotebookPen, BarChart3, CalendarDays } from "lucide-react";
 import { GlowCard } from "@/components/ui/spotlight-card";
 import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
