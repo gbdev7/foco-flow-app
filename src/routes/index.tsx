@@ -1,7 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { CalendarRange, Timer, Repeat2, NotebookPen, BarChart3, CalendarDays } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/spotlight-card";
+import { LiquidMetalButton } from "@/components/ui/liquid-metal-button";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,6 +33,7 @@ const FEATURES = [
 ];
 
 function Index() {
+  const navigate = useNavigate();
   return (
     <div className="relative min-h-screen overflow-hidden">
       <div
@@ -42,9 +43,7 @@ function Index() {
 
       <header className="relative mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-6">
         <span className="font-display text-lg font-semibold">Foco</span>
-        <Button asChild variant="ghost">
-          <Link to="/auth">Entrar</Link>
-        </Button>
+        <LiquidMetalButton label="Entrar" onClick={() => navigate({ to: "/auth" })} />
       </header>
 
       <section className="relative mx-auto max-w-3xl px-5 pb-16 pt-12 text-center sm:pt-20">
@@ -59,12 +58,16 @@ function Index() {
           lugar, sincronizado entre seus dispositivos.
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Button asChild size="lg">
-            <Link to="/auth">Começar agora</Link>
-          </Button>
-          <Button asChild size="lg" variant="outline">
-            <Link to="/auth">Já tenho conta</Link>
-          </Button>
+          <LiquidMetalButton
+            label="Começar agora"
+            onClick={() => navigate({ to: "/auth" })}
+            className="mx-auto sm:mx-0"
+          />
+          <LiquidMetalButton
+            label="Já tenho conta"
+            onClick={() => navigate({ to: "/auth" })}
+            className="mx-auto sm:mx-0"
+          />
         </div>
       </section>
 
