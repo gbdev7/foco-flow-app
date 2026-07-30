@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarRange, Timer, Repeat2, NotebookPen, BarChart3, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,12 +24,12 @@ export const Route = createFileRoute("/")({
 });
 
 const FEATURES = [
-  { icon: CalendarRange, title: "Cronograma", text: "Blocos de estudo por disciplina, com status e reagendamento sem perder histórico." },
-  { icon: CalendarDays, title: "Agenda", text: "Provas, trabalhos e compromissos com lembretes e blocos de revisão vinculados." },
-  { icon: Timer, title: "Pomodoro", text: "Ciclos 25/5, 50/10 ou personalizados, sempre ligados a uma disciplina." },
-  { icon: Repeat2, title: "Hábitos", text: "Check-in diário e sequências calculadas apenas nos dias que você definiu." },
-  { icon: NotebookPen, title: "Anotações", text: "Notas por disciplina e etiquetas, com busca por texto." },
-  { icon: BarChart3, title: "Estatísticas", text: "Horas estudadas, disciplina mais estudada e progresso das metas." },
+  { icon: CalendarRange, title: "Cronograma", text: "Blocos de estudo por disciplina, com status e reagendamento sem perder histórico.", glow: "purple" as const },
+  { icon: CalendarDays, title: "Agenda", text: "Provas, trabalhos e compromissos com lembretes e blocos de revisão vinculados.", glow: "blue" as const },
+  { icon: Timer, title: "Pomodoro", text: "Ciclos 25/5, 50/10 ou personalizados, sempre ligados a uma disciplina.", glow: "orange" as const },
+  { icon: Repeat2, title: "Hábitos", text: "Check-in diário e sequências calculadas apenas nos dias que você definiu.", glow: "green" as const },
+  { icon: NotebookPen, title: "Anotações", text: "Notas por disciplina e etiquetas, com busca por texto.", glow: "blue" as const },
+  { icon: BarChart3, title: "Estatísticas", text: "Horas estudadas, disciplina mais estudada e progresso das metas.", glow: "purple" as const },
 ];
 
 function Index() {
@@ -69,11 +70,18 @@ function Index() {
 
       <section className="relative mx-auto grid max-w-5xl gap-4 px-5 pb-24 sm:grid-cols-2 lg:grid-cols-3">
         {FEATURES.map((f) => (
-          <article key={f.title} className="surface-card p-5">
-            <f.icon className="size-5 text-primary" />
-            <h2 className="mt-3 text-base font-semibold">{f.title}</h2>
-            <p className="mt-1 text-sm text-muted-foreground">{f.text}</p>
-          </article>
+          <GlowCard
+            key={f.title}
+            glowColor={f.glow}
+            customSize
+            className="h-full w-full min-h-[200px] p-6"
+          >
+            <article className="relative z-10 flex flex-col justify-start">
+              <f.icon className="size-5 text-primary" />
+              <h2 className="mt-3 text-base font-semibold">{f.title}</h2>
+              <p className="mt-1 text-sm text-muted-foreground">{f.text}</p>
+            </article>
+          </GlowCard>
         ))}
       </section>
 
