@@ -64,16 +64,15 @@ function AuthPage() {
   }
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center px-4 py-12">
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{ backgroundImage: "var(--gradient-glow)" }}
-      />
-      <div className="surface-card relative w-full max-w-md p-7">
-        <Link to="/" className="font-display text-xl font-semibold">
+    <div className="flex min-h-screen items-center justify-center bg-sidebar px-4 py-12">
+      <div className="w-full max-w-md rounded-lg border border-border bg-card p-8 shadow-[var(--shadow-pop)]">
+        <Link to="/" className="flex items-center gap-2 text-lg font-bold">
+          <span className="grid size-6 place-items-center rounded bg-foreground text-xs font-bold text-background">
+            F
+          </span>
           Foco
         </Link>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="mt-2 text-sm text-muted-foreground">
           Seu cronograma, hábitos e pomodoro em um só lugar.
         </p>
 
