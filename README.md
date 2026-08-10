@@ -1,24 +1,74 @@
-# Pixel Perfect Match
+# FOCO 🎯
 
-Implement exactly the screenshot and nothing else
+> Um espaço de trabalho minimalista e produtivo inspirado no Notion, projetado para anotações, organização de estudos e máxima concentração.
 
-This project was built with [Lovable](https://lovable.dev).
+---
 
-## Build with Lovable
+## 🎯 Sobre o Projeto
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/2e39bcc4-9670-44ed-9236-ede0a204c7c9).
+O **Foco** foi desenvolvido para ser um ambiente centralizado de estudos e produtividade. Ele combina a flexibilidade de um editor de notas estilo Notion com ferramentas de produtividade integradas, ajudando a manter o fluxo de trabalho organizado e livre de distrações.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+---
 
-## Development
+## ✨ Principais Funcionalidades
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+* **📝 Ambiente de Anotações (Estilo Notion)**
+* Criação e organização de notas e cadernos digitais.
+* Editor de texto rico para estruturação de resumos e conteúdos de estudo.
+* Interface limpa, moderna e altamente personalizável.
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+
+* **⏱️ Modo Foco & Cronômetro**
+* Contador/Timer integrado para sessões de estudo (estilo Pomodoro).
+* Interface simplificada para minimizar distrações durante a execução de tarefas.
+* Acompanhamento de tempo de foco por sessão.
+
+
+* **📊 Organização de Estudos**
+* Categorização de conteúdos por matérias ou projetos.
+* Fluxo intuitivo focado em usabilidade e produtividade diária.
+
+
+
+---
+
+## 🛠️ Tech Stack
+
+* **Front-end:** React, TypeScript, Tailwind CSS, shadcn/ui.
+* **Build Tool:** Vite.
+* **Plataforma de Desenvolvimento:** Lovable.
+
+---
+
+## 🚀 Como Executar Localmente
+
+### Pré-requisitos
+
+* [Node.js](https://nodejs.org/) (versão LTS recomendada)
+* `npm` ou `yarn`
+
+### Passos
+
+1. **Clone o repositório:**
+```bash
+git clone https://github.com/seu-usuario/foco.git
+cd foco
+
 ```
+
+
+2. **Instale as dependências:**
+```bash
+npm install
+
+```
+
+
+3. **Inicie o servidor de desenvolvimento:**
+```bash
+npm run dev
+
+```
+
+
+4. Acesse `http://localhost:5173` no seu navegador.
