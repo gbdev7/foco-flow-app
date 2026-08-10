@@ -10,6 +10,8 @@ O **Foco** foi desenvolvido para ser um ambiente centralizado de estudos e produ
 
 ---
 
+* acesse em https://focoflowmode.lovable.app
+
 ## ✨ Principais Funcionalidades
 
 * **📝 Ambiente de Anotações (Estilo Notion)**
@@ -43,10 +45,6 @@ O **Foco** foi desenvolvido para ser um ambiente centralizado de estudos e produ
 ## 🚀 Como Executar Localmente
 
 ### Pré-requisitos
-
-* acesse em https://focoflowmode.lovable.app
-
-* ou
 
 * [Node.js](https://nodejs.org/) (versão LTS recomendada)
 * `npm` ou `yarn`
