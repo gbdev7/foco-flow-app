@@ -44,6 +44,10 @@ O **Foco** foi desenvolvido para ser um ambiente centralizado de estudos e produ
 
 ### Pré-requisitos
 
+* acesse em https://focoflowmode.lovable.app
+
+* ou
+
 * [Node.js](https://nodejs.org/) (versão LTS recomendada)
 * `npm` ou `yarn`
 
