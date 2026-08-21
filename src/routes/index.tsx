@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { InteractiveDots } from "@/components/ui/interactive-dots";
 
 export const Route = createFileRoute("/")({
   head: () => ({
