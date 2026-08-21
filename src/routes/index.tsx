@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { InteractiveDots } from "@/components/ui/interactive-dots";
+import { ServiceCard } from "@/components/ui/service-card";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -72,15 +73,15 @@ function Index() {
 
       <section className="mx-auto max-w-3xl px-5 pb-24">
         <hr className="notion-divider mb-8" />
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2">
           {FEATURES.map((f) => (
-            <article key={f.title} className="notion-row flex gap-3 p-3">
-              <span className="mt-0.5 text-lg leading-none">{f.emoji}</span>
-              <div>
-                <h2 className="text-sm font-semibold">{f.title}</h2>
-                <p className="mt-1 text-sm text-muted-foreground">{f.text}</p>
-              </div>
-            </article>
+            <ServiceCard
+              key={f.title}
+              icon={f.emoji}
+              title={f.title}
+              description={f.text}
+              cta="Ver módulo"
+            />
           ))}
         </div>
       </section>
