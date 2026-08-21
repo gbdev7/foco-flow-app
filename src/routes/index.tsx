@@ -48,22 +48,25 @@ function Index() {
         </div>
       </header>
 
-      <section className="mx-auto max-w-3xl px-5 pb-14 pt-16 text-center">
-        <span className="text-5xl">📚</span>
-        <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
-          Sua rotina de estudos, organizada de verdade
-        </h1>
-        <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
-          Cronograma, agenda de provas, pomodoro, hábitos, anotações e estatísticas — tudo no mesmo
-          lugar, sincronizado entre seus dispositivos.
-        </p>
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Button asChild size="lg">
-            <Link to="/auth">Começar agora</Link>
-          </Button>
-          <Button asChild size="lg" variant="outline">
-            <Link to="/auth">Já tenho conta</Link>
-          </Button>
+      <section className="relative mx-auto max-w-3xl overflow-hidden px-5 pb-14 pt-16 text-center">
+        <InteractiveDots spacing={26} dotRadius={1.6} repelRadius={120} repelStrength={0.5} />
+        <div className="relative z-10">
+          <span className="text-5xl">📚</span>
+          <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
+            Sua rotina de estudos, organizada de verdade
+          </h1>
+          <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
+            Cronograma, agenda de provas, pomodoro, hábitos, anotações e estatísticas — tudo no mesmo
+            lugar, sincronizado entre seus dispositivos.
+          </p>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Button asChild size="lg">
+              <Link to="/auth">Começar agora</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link to="/auth">Já tenho conta</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
