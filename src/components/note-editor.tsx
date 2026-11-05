@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import {
   Bold,
   Italic,
@@ -46,11 +46,19 @@ type Props = {
   onChange: (html: string) => void;
 };
 
+export type NoteEditorHandle = {
+  /** HTML content plus the pen drawing composited as an image at the end. */
+  getContent: () => string;
+};
+
 /**
  * Apple-Notes-style editor: rich text (execCommand), image embedding (base64)
  * and a pen layer (canvas overlay) for drawing on top of the note.
  */
-export function NoteEditor({ value, onChange }: Props) {
+export const NoteEditor = forwardRef<NoteEditorHandle, Props>(function NoteEditor(
+  { value, onChange },
+  ref,
+) {
   const areaRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
