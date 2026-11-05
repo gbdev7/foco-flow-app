@@ -6,10 +6,10 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { currentUserId, subjectMap, useSubjects } from "@/hooks/use-app-data";
 import { PageHeader, EmptyState } from "@/components/page-header";
+import { NoteEditor } from "@/components/note-editor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -60,6 +60,7 @@ function NotesPage() {
   const [open, setOpen] = useState(false);
   const [subjectId, setSubjectId] = useState("none");
   const [color, setColor] = useState(SUBJECT_COLORS[0]);
+  const [content, setContent] = useState("");
 
   const notes = useQuery({
     queryKey: ["notes"],
@@ -151,6 +152,7 @@ function NotesPage() {
   function openEditor(note: Note | null) {
     setEditing(note);
     setSubjectId(note?.subject_id ?? "none");
+    setContent(note?.content ?? "");
     setOpen(true);
   }
 
