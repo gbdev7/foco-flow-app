@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus, Search, Trash2 } from "lucide-react";
@@ -6,10 +6,10 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { currentUserId, subjectMap, useSubjects } from "@/hooks/use-app-data";
 import { PageHeader, EmptyState } from "@/components/page-header";
+import { NoteEditor, type NoteEditorHandle } from "@/components/note-editor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -50,6 +50,16 @@ type Note = {
   updated_at: string;
 };
 
+/** Legacy notes are plain text; convert to HTML so they open correctly in the rich editor. */
+function toHtml(raw: string): string {
+  if (/<[a-z][\s\S]*>/i.test(raw)) return raw;
+  const escaped = raw
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+  return escaped.replace(/\n/g, "<br>");
+}
+
 function NotesPage() {
   const qc = useQueryClient();
   const subjects = useSubjects();
@@ -60,6 +70,8 @@ function NotesPage() {
   const [open, setOpen] = useState(false);
   const [subjectId, setSubjectId] = useState("none");
   const [color, setColor] = useState(SUBJECT_COLORS[0]);
+  const [content, setContent] = useState("");
+  const editorRef = useRef<NoteEditorHandle>(null);
 
   const notes = useQuery({
     queryKey: ["notes"],
@@ -151,6 +163,7 @@ function NotesPage() {
   function openEditor(note: Note | null) {
     setEditing(note);
     setSubjectId(note?.subject_id ?? "none");
+    setContent(toHtml(note?.content ?? ""));
     setOpen(true);
   }
 
@@ -216,9 +229,10 @@ function NotesPage() {
                       <Trash2 className="size-4" />
                     </Button>
                   </div>
-                  <p className="mt-2 line-clamp-4 flex-1 whitespace-pre-wrap text-sm text-muted-foreground">
-                    {note.content}
-                  </p>
+                  <div
+                    className="mt-2 line-clamp-4 flex-1 text-sm text-muted-foreground [&_img]:max-h-24 [&_img]:rounded-md"
+                    dangerouslySetInnerHTML={{ __html: note.content }}
+                  />
                   <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
                     <span>{formatDayLabel(note.note_date)}</span>
                     {subject && (
@@ -284,7 +298,7 @@ function NotesPage() {
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-xl">
+        <DialogContent className="max-h-[92vh] max-w-2xl overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editing ? "Editar anotação" : "Nova anotação"}</DialogTitle>
           </DialogHeader>
@@ -296,7 +310,7 @@ function NotesPage() {
               save.mutate({
                 id: editing?.id,
                 title: String(f.get("title")),
-                content: String(f.get("content") ?? ""),
+                content: editorRef.current?.getContent() ?? content,
                 note_date: String(f.get("note_date")),
               });
             }}
@@ -334,8 +348,13 @@ function NotesPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="nt-content">Conteúdo</Label>
-              <Textarea id="nt-content" name="content" rows={10} defaultValue={editing?.content ?? ""} />
+              <Label>Conteúdo</Label>
+              <NoteEditor
+                key={editing?.id ?? "new"}
+                ref={editorRef}
+                value={content}
+                onChange={setContent}
+              />
             </div>
             <Button type="submit" className="w-full">
               Salvar
