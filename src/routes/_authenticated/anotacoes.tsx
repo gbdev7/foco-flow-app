@@ -218,9 +218,10 @@ function NotesPage() {
                       <Trash2 className="size-4" />
                     </Button>
                   </div>
-                  <p className="mt-2 line-clamp-4 flex-1 whitespace-pre-wrap text-sm text-muted-foreground">
-                    {note.content}
-                  </p>
+                  <div
+                    className="mt-2 line-clamp-4 flex-1 text-sm text-muted-foreground [&_img]:max-h-24 [&_img]:rounded-md"
+                    dangerouslySetInnerHTML={{ __html: note.content }}
+                  />
                   <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
                     <span>{formatDayLabel(note.note_date)}</span>
                     {subject && (
@@ -286,7 +287,7 @@ function NotesPage() {
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-xl">
+        <DialogContent className="max-h-[92vh] max-w-2xl overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editing ? "Editar anotação" : "Nova anotação"}</DialogTitle>
           </DialogHeader>
@@ -298,7 +299,7 @@ function NotesPage() {
               save.mutate({
                 id: editing?.id,
                 title: String(f.get("title")),
-                content: String(f.get("content") ?? ""),
+                content,
                 note_date: String(f.get("note_date")),
               });
             }}
@@ -336,8 +337,8 @@ function NotesPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="nt-content">Conteúdo</Label>
-              <Textarea id="nt-content" name="content" rows={10} defaultValue={editing?.content ?? ""} />
+              <Label>Conteúdo</Label>
+              <NoteEditor key={editing?.id ?? "new"} value={content} onChange={setContent} />
             </div>
             <Button type="submit" className="w-full">
               Salvar
