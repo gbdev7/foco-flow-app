@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus, Search, Trash2 } from "lucide-react";
@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { currentUserId, subjectMap, useSubjects } from "@/hooks/use-app-data";
 import { PageHeader, EmptyState } from "@/components/page-header";
-import { NoteEditor } from "@/components/note-editor";
+import { NoteEditor, type NoteEditorHandle } from "@/components/note-editor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -71,6 +71,7 @@ function NotesPage() {
   const [subjectId, setSubjectId] = useState("none");
   const [color, setColor] = useState(SUBJECT_COLORS[0]);
   const [content, setContent] = useState("");
+  const editorRef = useRef<NoteEditorHandle>(null);
 
   const notes = useQuery({
     queryKey: ["notes"],
@@ -309,7 +310,7 @@ function NotesPage() {
               save.mutate({
                 id: editing?.id,
                 title: String(f.get("title")),
-                content,
+                content: editorRef.current?.getContent() ?? content,
                 note_date: String(f.get("note_date")),
               });
             }}
@@ -348,7 +349,12 @@ function NotesPage() {
             </div>
             <div className="space-y-2">
               <Label>Conteúdo</Label>
-              <NoteEditor key={editing?.id ?? "new"} value={content} onChange={setContent} />
+              <NoteEditor
+                key={editing?.id ?? "new"}
+                ref={editorRef}
+                value={content}
+                onChange={setContent}
+              />
             </div>
             <Button type="submit" className="w-full">
               Salvar
