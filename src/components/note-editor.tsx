@@ -376,4 +376,4 @@ export const NoteEditor = forwardRef<NoteEditorHandle, Props>(function NoteEdito
       </div>
     </div>
   );
-}
+});
