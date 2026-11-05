@@ -50,6 +50,16 @@ type Note = {
   updated_at: string;
 };
 
+/** Legacy notes are plain text; convert to HTML so they open correctly in the rich editor. */
+function toHtml(raw: string): string {
+  if (/<[a-z][\s\S]*>/i.test(raw)) return raw;
+  const escaped = raw
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+  return escaped.replace(/\n/g, "<br>");
+}
+
 function NotesPage() {
   const qc = useQueryClient();
   const subjects = useSubjects();
@@ -152,7 +162,7 @@ function NotesPage() {
   function openEditor(note: Note | null) {
     setEditing(note);
     setSubjectId(note?.subject_id ?? "none");
-    setContent(note?.content ?? "");
+    setContent(toHtml(note?.content ?? ""));
     setOpen(true);
   }
 
