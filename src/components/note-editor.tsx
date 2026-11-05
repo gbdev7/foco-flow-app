@@ -102,6 +102,27 @@ export const NoteEditor = forwardRef<NoteEditorHandle, Props>(function NoteEdito
     onChange(areaRef.current?.innerHTML ?? "");
   }
 
+  function canvasHasInk(): boolean {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx || canvas.width === 0) return false;
+    const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    for (let i = 3; i < data.length; i += 16) {
+      if (data[i] !== 0) return true;
+    }
+    return false;
+  }
+
+  useImperativeHandle(ref, () => ({
+    getContent: () => {
+      let html = areaRef.current?.innerHTML ?? "";
+      if (canvasHasInk()) {
+        html += `<img src="${canvasRef.current!.toDataURL("image/png")}" alt="Desenho" />`;
+      }
+      return html;
+    },
+  }));
+
   function exec(command: string, arg?: string) {
     areaRef.current?.focus();
     document.execCommand(command, false, arg);
